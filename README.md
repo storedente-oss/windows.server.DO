@@ -53,6 +53,24 @@ Setelah QEMU berjalan, ikuti langkah berikut untuk mengakses dan mengonfigurasi 
 2. Nonaktifkan **CTRL+ALT+DEL** di Local Security.
 3. Atur agar Windows Server **tidak pernah tidur**.
 
+**Jika VNC tidak bisa di akses**
+Buka firewall ufw untuk port 5900 nya dulu :
+
+```bash
+# Check apakah Firewall UFW active
+sudo ufw status
+
+# Jika belum aktifkan telebih dahulu
+sudo ufw enable
+
+# Lalu aktifkan port 5900
+sudo ufw allow 5900/tcp
+
+# Reload firewall
+sudo ufw reload
+
+```
+
 
 ### 6. Buat script run automatis qemu
 Untuk menjalankan service qemu di server secara otomatis agar bisa di remote oleh local RDP windows, jalankan perintah ini :
@@ -96,8 +114,7 @@ echo "Setelah instalasi driver & RDP selesai, akses via RDP di port 3389."
 
 ```
 
-**Copy & paste script ini**
-Berikan izin agar file dapat dijalankan:
+**Berikan izin agar file dapat dijalankan:**
 
 ```bash
 chmod +x run_windows.sh
