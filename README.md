@@ -49,9 +49,21 @@ qemu-system-x86_64 \
 ### 5. Akses via VNC
 Setelah QEMU berjalan, ikuti langkah berikut untuk mengakses dan mengonfigurasi Windows Server:
 
-1. Aktifkan **Remote Desktop** di pengaturan Windows Server.
-2. Nonaktifkan **CTRL+ALT+DEL** di Local Security.
-3. Atur agar Windows Server **tidak pernah tidur**.
+**A. Aktifkan Remote Dekstop :**
+1. Di Windows, cari "Remote Desktop Settings".
+2. Aktifkan **Remote Desktop** di pengaturan Windows Server.
+3. Klik "Advanced settings" (atau "Change settings" di samping pilihan Enable RDP).
+4. Hapus centang (uncheck) pada opsi: "Require computers to use Network Level Authentication to connect".
+5. Klik Save/Apply
+
+**B. Matikan Firewall di Dalam Windows :**
+1. Buka Control Panel > System and Security > Windows Defender Firewall.
+2. Pilih Turn Windows Defender Firewall on or off.
+3. Pilih Turn off Windows Defender Firewall untuk Public & Private network.
+
+**C. Atur agar Windows Server tidak pernah tidur**
+1. Buka Control Panel > System > Power & Sleep.
+2. Ganti pengaturan Screen ke **Never**.
 
 ### Jika VNC tidak bisa di akses
 Buka firewall ufw untuk port 5900 nya dulu :
