@@ -53,7 +53,65 @@ Setelah QEMU berjalan, ikuti langkah berikut untuk mengakses dan mengonfigurasi 
 2. Nonaktifkan **CTRL+ALT+DEL** di Local Security.
 3. Atur agar Windows Server **tidak pernah tidur**.
 
-### 6. Kompres File Windows Server
+
+### 6. Buat script run automatis qemu
+Untuk menjalankan service qemu di server secara otomatis agar bisa di remote oleh local RDP windows, jalankan perintah ini :
+
+**Buat script file baru**
+
+```bash
+sudo nano run_windows.sh
+
+```
+
+**Copy & paste script ini**
+Ganti `xxxx`dengan versi Windows yang Anda pilih (misal, `windows10`):
+
+```bash
+#!/bin/bash
+
+# Pastikan nama file image dan ISO sesuai dengan hasil download script sebelumnya
+IMG_FILE="windowsxxxx.img"
+WIN_ISO="windowsxxxx.iso"
+VIRTIO_ISO="virtio-win.iso"
+
+qemu-system-x86_64 \
+  -m 4G \
+  -smp cores=2,threads=2 \
+  -cpu host,hv_relaxed,hv_spinlocks=0x1fff,hv_vapic,hv_time \
+  -enable-kvm \
+  -drive file=$IMG_FILE,format=raw,if=virtio \
+  -drive file=$WIN_ISO,index=1,media=cdrom \
+  -drive file=$VIRTIO_ISO,index=2,media=cdrom \
+  -netdev user,id=net0,hostfwd=tcp::3389-:3389 \
+  -device virtio-net-pci,netdev=net0 \
+  -device usb-ehci,id=usb \
+  -device usb-tablet \
+  -vnc :0 \
+  -daemonize
+
+echo "VM Windows sedang berjalan di background."
+echo "Silakan akses VNC di port 5900 untuk instalasi awal."
+echo "Setelah instalasi driver & RDP selesai, akses via RDP di port 3389."
+
+```
+
+**Copy & paste script ini**
+Berikan izin agar file dapat dijalankan:
+
+```bash
+chmod +x run_windows.sh
+
+```
+
+**Jalankan installer dengan perintah berikut:**
+
+```bash
+./run_windows.sh
+
+```
+
+### 7. Kompres File Windows Server
 Setelah konfigurasi selesai, kompres image Windows Server. Ganti `xxxx` dengan versi Windows yang Anda pilih (misal, `windows10`):
 
 ```bash
@@ -61,7 +119,7 @@ dd if=windowsxxxx.img | gzip -c > windowsxxxx.gz
 
 ```
 
-### 7. Instal Apache
+### 8. Instal Apache
 Instal Apache untuk melayani file melalui web:
 
 ```bash
@@ -69,7 +127,7 @@ apt install apache2 -y
 
 ```
 
-### 8. Berikan Akses Firewall untuk Apache
+### 9. Berikan Akses Firewall untuk Apache
 Izinkan akses Apache melalui firewall:
 
 ```bash
@@ -77,7 +135,7 @@ sudo ufw allow 'Apache'
 
 ```
 
-### 9. Pindahkan File Windows Server ke Lokasi Web
+### 10. Pindahkan File Windows Server ke Lokasi Web
 Salin file Windows Server yang sudah dikompres ke direktori web Apache:
 
 ```bash
@@ -85,7 +143,7 @@ cp windowsxxxx.gz /var/www/html/
 
 ```
 
-### 10. Link Download
+### 11. Link Download
 Setelah file dipindahkan, akses file tersebut melalui alamat IP droplet Anda:
 
 ```
