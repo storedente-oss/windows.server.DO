@@ -258,7 +258,9 @@ pkill qemu-system-x86
 
 **Jalankan perintah ini di terminal Ubuntu untuk menambah kapasitas file image**
 
-_**Notes: Misal Spek server anda 116GB maka ubah STORAGE menjadi `-m 115G` (sisakan sedikit untuk Ubuntu agar tidak crash). Untuk spek lainnya sama yaitu kurangi minimal 1-2 GB untuk Ubuntu._
+_**Notes: Misal Spek server anda 116GB maka ubah STORAGE menjadi `115G` (sisakan sedikit untuk Ubuntu agar tidak crash). Untuk spek lainnya sama yaitu kurangi minimal 1-2 GB untuk Ubuntu._
+
+Jalankan perintah ini untuk mengubahnya:
 
 ```bash
 qemu-img resize windows10.img 115G
