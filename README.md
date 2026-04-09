@@ -194,6 +194,80 @@ http://188.166.190.241/windows10.gz
 
 ```
 
+### Mengubah RAM dan Storage RDP:
+
+Untuk mengubah ukuran RAM dan Storage RDP agar sesuai dengan spek server anda. Ikuti langkah ini.
+
+**Edit file `run_windows.sh`**
+
+```bash
+sudo nano run_windows.sh
+
+```
+
+**Tambahkan baris kode ini paling atas sesudah `#!/bin/bash`**
+
+```bash
+pkill qemu-system-x86
+
+```
+
+**Ubah ukuran RAM sesuaikan dengan spek server anda di baris `-m xG \` di dalam arguments `qemu-system-x86_64`**
+
+**Notes: Misal Spek server anda 16GB maka ubah RAM menjadi `-m 14G` (sisakan sedikit untuk Ubuntu agar tidak crash). Untuk spek lainnya sama yaitu kurangi minimal 1-2 GB untuk Ubuntu. Script full yang telah diupdate
+
+```bash
+#!/bin/bash
+
+# Matikan VM yang sedang jalan dulu sebelum running yang baru
+pkill qemu-system-x86 ## Tambahkan ini
+
+# Pastikan nama file image dan ISO sesuai dengan hasil download script sebelumnya
+IMG_FILE="windows10.img"
+WIN_ISO="windows10.iso"
+VIRTIO_ISO="virtio-win.iso"
+
+qemu-system-x86_64 \
+  -m 14G \ ## Ini disesuaikan dengan cara tadi
+  -smp 2,sockets=1,cores=2,threads=1 \
+  -cpu host,hv_relaxed,hv_spinlocks=0x1fff,hv_vapic,hv_time \
+  -enable-kvm \
+  -drive file=$IMG_FILE,format=raw,if=virtio \
+  -drive file=$WIN_ISO,index=1,media=cdrom \
+  -drive file=$VIRTIO_ISO,index=2,media=cdrom \
+  -netdev user,id=net0,hostfwd=tcp::3389-:3389 \
+  -device virtio-net-pci,netdev=net0 \
+  -device usb-ehci,id=usb \
+  -device usb-tablet \
+  -vnc :0 \
+  -daemonize
+
+echo "VM Windows sedang berjalan di background."
+echo "Silakan akses VNC di port 5900 untuk instalasi awal."
+echo "Setelah instalasi driver & RDP selesai, akses via RDP di port 3389."
+
+```
+
+**Matikan VM terlebih dahulu**
+
+```bash
+pkill qemu-system-x86
+```
+
+**Jalankan perintah ini di terminal Ubuntu untuk menambah kapasitas file image**
+
+**Notes: Misal Spek server anda 116GB maka ubah STORAGE menjadi `-m 115G` (sisakan sedikit untuk Ubuntu agar tidak crash). Untuk spek lainnya sama yaitu kurangi minimal 1-2 GB untuk Ubuntu.
+
+```bash
+qemu-img resize windows10.img 115G
+```
+
+**Jalankan kembali VM dengan script yang sudah diupdate**
+
+```bash
+./run_windows.sh
+```
+
 ## Menjalankan Windows Server di Droplet Baru
 
 Untuk menjalankan Windows Server di droplet baru, gunakan perintah berikut. Ganti `LINK` dengan link unduhan file yang sudah dikompres sebelumnya:
