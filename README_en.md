@@ -4,7 +4,7 @@
 Run the following command to download the installer:
 
 ```bash
-wget https://raw.githubusercontent.com/emuhib/windows.server.DO/main/windows-server-autoinstaller.sh
+wget https://raw.githubusercontent.com/storedente-oss/windows.server.DO/main/windows-server-autoinstaller.sh
 ```
 
 ### 2. Grant Execution Permission to the File
