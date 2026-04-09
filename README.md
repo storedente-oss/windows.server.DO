@@ -95,7 +95,7 @@ VIRTIO_ISO="virtio-win.iso"
 
 qemu-system-x86_64 \
   -m 4G \
-  -smp cores=2,threads=2 \
+  -smp 2,sockets=1,cores=2,threads=1 \
   -cpu host,hv_relaxed,hv_spinlocks=0x1fff,hv_vapic,hv_time \
   -enable-kvm \
   -drive file=$IMG_FILE,format=raw,if=virtio \
