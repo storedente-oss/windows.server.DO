@@ -216,7 +216,7 @@ pkill qemu-system-x86
 
 **Ubah ukuran RAM sesuaikan dengan spek server anda di baris `-m xG \` di dalam arguments `qemu-system-x86_64`**
 
-**Notes: Misal Spek server anda 16GB maka ubah RAM menjadi `-m 14G` (sisakan sedikit untuk Ubuntu agar tidak crash). Untuk spek lainnya sama yaitu kurangi minimal 1-2 GB untuk Ubuntu. Script full yang telah diupdate
+_**Notes: Misal Spek server anda 16GB maka ubah RAM menjadi `-m 14G` (sisakan sedikit untuk Ubuntu agar tidak crash). Untuk spek lainnya sama yaitu kurangi minimal 1-2 GB untuk Ubuntu. Script full yang telah diupdate_
 
 ```bash
 #!/bin/bash
@@ -258,7 +258,7 @@ pkill qemu-system-x86
 
 **Jalankan perintah ini di terminal Ubuntu untuk menambah kapasitas file image**
 
-**Notes: Misal Spek server anda 116GB maka ubah STORAGE menjadi `-m 115G` (sisakan sedikit untuk Ubuntu agar tidak crash). Untuk spek lainnya sama yaitu kurangi minimal 1-2 GB untuk Ubuntu.
+_**Notes: Misal Spek server anda 116GB maka ubah STORAGE menjadi `-m 115G` (sisakan sedikit untuk Ubuntu agar tidak crash). Untuk spek lainnya sama yaitu kurangi minimal 1-2 GB untuk Ubuntu._
 
 ```bash
 qemu-img resize windows10.img 115G
