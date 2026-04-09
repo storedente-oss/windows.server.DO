@@ -65,7 +65,8 @@ Setelah QEMU berjalan, ikuti langkah berikut untuk mengakses dan mengonfigurasi 
 1. Buka Control Panel > System > Power & Sleep.
 2. Ganti pengaturan Screen ke **Never**.
 
-### Jika VNC tidak bisa di akses
+**Jika VNC tidak bisa di akses**
+
 Buka firewall ufw untuk port 5900 nya dulu :
 
 ```bash
@@ -87,14 +88,15 @@ sudo ufw reload
 ### 6. Buat script run automatis qemu
 Untuk menjalankan service qemu di server secara otomatis agar bisa di remote oleh local RDP windows, jalankan perintah ini :
 
-### Buat script file baru
+**Buat script file baru**
 
 ```bash
 sudo nano run_windows.sh
 
 ```
 
-### Copy & paste script ini
+**Copy & paste script ini**
+
 Ganti `xxxx`dengan versi Windows yang Anda pilih (misal, `windows10`):
 
 ```bash
@@ -126,21 +128,21 @@ echo "Setelah instalasi driver & RDP selesai, akses via RDP di port 3389."
 
 ```
 
-### Berikan izin agar file dapat dijalankan:
+**Berikan izin agar file dapat dijalankan:**
 
 ```bash
 chmod +x run_windows.sh
 
 ```
 
-### Jalankan installer dengan perintah berikut:
+**Jalankan installer dengan perintah berikut:**
 
 ```bash
 ./run_windows.sh
 
 ```
 
-### Buka Port RDP di Ubuntu
+**Buka Port RDP di Ubuntu**
 
 ```bash
 sudo ufw allow 3389/tcp
